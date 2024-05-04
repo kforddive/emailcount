@@ -1,0 +1,40 @@
+function countEmailyesterday(){
+
+  const secondsSinceEpoch = (date) => Math.floor(date.getTime() / 1000);
+  const after = new Date();
+  const before = new Date();
+
+
+  //Subtract 1 day 
+  after.setDate(after.getDate()-1);
+  before.setDate(before.getDate()-1);
+
+  //Get -1 day  date string
+  var timezone = Session.getScriptTimeZone();
+  var todayStr = Utilities.formatDate(after,timezone,"MM/dd/yyyy");
+  Logger.log(todayStr);
+
+  //Set time to 00:00 and 23:59
+  after.setHours(00, 00, 0, 0);
+  before.setHours(23, 59, 0, 0);
+  
+  //Label
+  const label = "Inbox";
+  const query = `label:${label} after:${secondsSinceEpoch(after)} before:${secondsSinceEpoch(before)}`;
+  Logger.log(query);
+
+  var threads = GmailApp.search(query);
+  var count = threads.length;
+  Logger.log(count);
+
+  //Find the matching date's row and write the email count in column B
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Monitor');
+  var dateValues = sheet.getRange('A1:A').getDisplayValues().flat();
+  Logger.log(dateValues);
+  //find matched index
+  var index = dateValues.indexOf(todayStr);
+  if(index!=-1){
+    Logger.log(index);
+    sheet.getRange(index+1,2).setValue(count);
+  }
+}
