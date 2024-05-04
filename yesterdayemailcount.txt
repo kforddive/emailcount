@@ -19,7 +19,7 @@ function countEmailyesterday(){
   before.setHours(23, 59, 0, 0);
   
   //Label
-  const label = "Inbox";
+  const label = "Received";
   const query = `label:${label} after:${secondsSinceEpoch(after)} before:${secondsSinceEpoch(before)}`;
   Logger.log(query);
 
