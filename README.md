@@ -11,4 +11,4 @@ I decided to label all incoming mail "Received" - I did this so that if I change
 Question: if I delete a message will it still be counted?
 
 I also want to count all emails that I send.
-I ultimately want to trigger it so it happens automatically each day or when I press a button.
+I ultimately want to trigger it so it happens automatically each day.
